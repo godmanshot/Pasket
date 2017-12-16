@@ -1,5 +1,9 @@
 {
     "name": "godmanshot/pasket",
+    "type": "library",
+    "description": "PHP basket script",
+    "keywords": ["basket", "script", "php"],
+    "license": "MIT",
     "authors": [
         {
             "name": "godmanshot",
@@ -9,7 +13,8 @@
 	"require-dev": {
 		"phpunit/phpunit": "6.5"
 	},
-	"require": {
+    "require": {
+        "php": ">=7.0.0",
 		"symfony/dependency-injection": "^4.0"
 	},
     "autoloader": {
