@@ -4,6 +4,7 @@
     "description": "PHP basket shopping script",
     "keywords": ["basket", "basket shopping", "script", "php"],
     "license": "MIT",
+    "minimum-stability": "dev",
     "authors": [
         {
             "name": "godmanshot",
@@ -21,6 +22,5 @@
     	"psr-4": {
     		"Pasket\\": "src/Pasket"
     	}
-    },
-    "minimum-stability": "dev"
+    }
 }
