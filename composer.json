@@ -1,8 +1,8 @@
 {
     "name": "godmanshot/pasket",
     "type": "library",
-    "description": "PHP basket script",
-    "keywords": ["basket", "script", "php"],
+    "description": "PHP basket shopping script",
+    "keywords": ["basket", "basket shopping", "script", "php"],
     "license": "MIT",
     "authors": [
         {
