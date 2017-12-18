@@ -51,7 +51,7 @@ class BasketTest extends TestCase
         $data = $this->data();
         $basket = container(Basket::class);
         $basket->add($data);
-        $basket->delete($data);
+        $basket->delete($data['id']);
         $this->assertNotContains($data, $basket->get());
     }
 
