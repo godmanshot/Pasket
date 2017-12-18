@@ -2,7 +2,7 @@
     "name": "godmanshot/pasket",
     "description": "PHP basket shopping script",
     "keywords": ["basket", "basket shopping", "script", "php"],
-    "version": "1.0.0",
+    "version": "0.0.1",
     "license": "MIT",
     "authors": [
         {
