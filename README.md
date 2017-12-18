@@ -1,4 +1,5 @@
 # Pasket
+PHP basket shopping script
 
 ## Install
 ```bash
@@ -6,7 +7,6 @@ composer require godmanshot/pasket=dev
 ```
 
 ## Usage
-
 ```php
 use Pasket\Basket;
 
