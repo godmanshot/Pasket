@@ -3,7 +3,7 @@ PHP basket shopping script
 
 ## Install
 ```bash
-composer require godmanshot/pasket=dev
+composer require godmanshot/pasket
 ```
 
 ## Usage
