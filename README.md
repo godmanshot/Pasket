@@ -38,6 +38,6 @@ $basket->get();
 use Pasket\Basket;
 
 $basket = new Basket();
-$basket->delete(['id' => 1]); // id = 1
+$basket->delete(1); // id = 1
 $basket->saveState();
 ```
