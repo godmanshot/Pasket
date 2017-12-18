@@ -2,7 +2,7 @@
 
 ## Install
 ```bash
-> composer require godmanshot/pasket=dev
+composer require godmanshot/pasket=dev
 ```
 
 ## Usage
