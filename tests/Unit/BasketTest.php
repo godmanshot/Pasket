@@ -20,6 +20,18 @@ class BasketTest extends TestCase
     /**
      * @test
      */
+    public function basket_can_get_one()
+    {
+        $data = $this->data();
+        $basket = container(Basket::class);
+        $basket->add($data);
+
+        $this->assertInternalType('array', $basket->get(1));
+    }
+
+    /**
+     * @test
+     */
     public function basket_can_add()
     {
         $data = $this->data();
