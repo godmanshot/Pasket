@@ -25,23 +25,20 @@ class Basket {
 	 */
 	public function __construct(Keeper $keeper = null) {
 
-		if($keeper)
-		{
+		$this->keeper = $keeper ? $keeper : new CookieKeeper('basket');
 
-			$this->keeper = $keeper;
+		$this->init();
 
-		} else {
+	}
 
-			$this->keeper = new CookieKeeper('basket');
+	/**
+	 * Init basket
+	 */
+	public function init() {
+		
+		$data = $this->keeper->get();
 
-		}
-
-		if(($this->container = $this->unprepare($this->keeper->get())) === null)
-		{
-
-			$this->container = [];
-
-		}
+		$this->container = $data ? $data : [];
 
 	}
 
@@ -51,16 +48,12 @@ class Basket {
 	 */
 	public function add(array $data) {
 
-		if(isset($data['id']))
+		if(!isset($data['id']))
 		{
-
-			$this->container[$data['id']] = $data;
-
-		} else {
-
-			$this->container[] = $data;
-			
+			throw new \Exception('data must contain id');
 		}
+
+		$this->container[$data['id']] = $data;
 
 		return $this;
 	}
@@ -75,16 +68,12 @@ class Basket {
 	 */
 	public function delete($id) {
 
-		if(isset($this->container[$id]))
+		if(!isset($this->container[$id]))
 		{
-
-			unset($this->container[$id]);
-
-		} else {
-
-			throw new \OutOfRangeException('a key:'.$id.' does not exist');
-
+			throw new \Exception('a key:'.$id.' does not exist');
 		}
+
+		unset($this->container[$id]);
 
 		return $this;
 	}
@@ -110,32 +99,12 @@ class Basket {
 	}
 
 	/**
-	 * Unprepares data for storage
-	 * @param  array $data
-	 * @return string
-	 */
-	public function unprepare($data) {
-
-		return json_decode($data, true);
-
-	}
-
-	/**
-	 * Prepares data for storage
-	 * @param  array $data
-	 * @return string
-	 */
-	public function prepare() {
-
-		return json_encode($this->container);
-
-	}
-
-	/**
 	 * Saves state|container in the keeper
 	 */
 	public function saveState() {
-		$this->keeper->save($this->prepare());
+
+		$this->keeper->save($this->container);
+
 	}
 
 }

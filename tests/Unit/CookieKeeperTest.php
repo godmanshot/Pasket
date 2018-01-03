@@ -7,15 +7,6 @@ use Pasket\Keepers\CookieKeeper;
 
 class CookieKeeperTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function keeper_have_manipulator()
-    {
-        $keeper = container(CookieKeeper::class);
-
-        $this->assertNotNull($keeper->manipulator());
-    }
 
     /**
      * @test
@@ -24,13 +15,11 @@ class CookieKeeperTest extends TestCase
     {
         $keeper = container(CookieKeeper::class);
         
-        $data = json_encode([1, 2, 3, 4, 5]);
+        $data = ['id' => 1];
 
         $keeper->save($data);
-
-        $this->assertContains($data, $keeper->manipulator()->container());
-
-        return $keeper;
+        
+        $this->assertEquals($data, $keeper->get());
     }
 
     /**
@@ -40,12 +29,12 @@ class CookieKeeperTest extends TestCase
     {
         $keeper = container(CookieKeeper::class);
 
-        $data = json_encode([1, 2, 3, 4, 5]);
+        $data = ['id' => 1];
 
         $keeper->save($data);
 
         $keeper->delete();
         
-        $this->assertNotContains($data, $keeper->manipulator()->container());
+        $this->assertFalse(isset($keeper->get()['id']));
     }
 }

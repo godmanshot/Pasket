@@ -14,6 +14,7 @@ class BasketTest extends TestCase
     public function basket_can_get()
     {
         $basket = container(Basket::class);
+
         $this->assertInternalType('array', $basket->get());
     }
 
@@ -23,10 +24,12 @@ class BasketTest extends TestCase
     public function basket_can_get_one()
     {
         $data = $this->data();
+
         $basket = container(Basket::class);
+
         $basket->add($data);
 
-        $this->assertInternalType('array', $basket->get(1));
+        $this->assertInternalType('array', $basket->get($data['id']));
     }
 
     /**
@@ -35,12 +38,12 @@ class BasketTest extends TestCase
     public function basket_can_add()
     {
         $data = $this->data();
+
         $basket = container(Basket::class);
+
         $basket->add($data);
 
         $this->assertContains($data, $basket->get());
-
-        return $basket;
     }
 
     /**
@@ -49,33 +52,14 @@ class BasketTest extends TestCase
     public function basket_can_delete()
     {
         $data = $this->data();
+
         $basket = container(Basket::class);
+
         $basket->add($data);
+
         $basket->delete($data['id']);
+
         $this->assertNotContains($data, $basket->get());
-    }
-
-    /**
-     * @test
-     */
-    public function basket_can_prepare()
-    {
-        $data = $this->data();
-        $basket = container(Basket::class);
-        $basket->add($data);
-
-        $this->assertEquals($basket->prepare(), json_encode([$data['id'] => $data]));
-    }
-
-    /**
-     * @test
-     */
-    public function basket_can_unprepare()
-    {
-        $data = $this->data();
-        $basket = container(Basket::class);
-        
-        $this->assertEquals($basket->unprepare(json_encode([$data['id'] => $data])), [$data['id'] => $data]);
     }
 
     /**
@@ -84,8 +68,11 @@ class BasketTest extends TestCase
     public function basket_can_save_state()
     {
         $data = $this->data();
+
         $basket = container(Basket::class);
+
         $basket->add($data);
+
         $basket->saveState();
 
         $new_basket = container(Basket::class);
@@ -95,7 +82,8 @@ class BasketTest extends TestCase
     }
 
 
-    public function data() {
+    public function data()
+    {
         return ['id' => 1, 'name' => 'iPhone', 'price' => 1000];
     }
 

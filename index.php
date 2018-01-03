@@ -1,11 +1,9 @@
 <?php
 
 use Pasket\Basket;
-use Pasket\Keepers\CookieKeeper;
-use Pasket\Keepers\CookieManipulator;
+use Pasket\Security\Encryption;
 
 require './vendor/autoload.php';
 
 $basket = new Basket();
-
-
+var_dump($basket->get());
