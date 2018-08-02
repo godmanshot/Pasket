@@ -5,7 +5,10 @@ namespace Pasket\Keepers;
 class CookieManipulator {
 
 	public function get($name) {
-		return $_COOKIE[$name];
+		if (isset($_COOKIE[$name]))
+			return $_COOKIE[$name];
+		else
+			return json_encode([]);
 	}
 
 	public function set($name, $value, $time = 3600) {
