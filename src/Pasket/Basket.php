@@ -25,20 +25,23 @@ class Basket {
 	 */
 	public function __construct(Keeper $keeper = null) {
 
-		$this->keeper = $keeper ? $keeper : new CookieKeeper('basket');
+		if($keeper)
+		{
 
-		$this->init();
+			$this->keeper = $keeper;
 
-	}
+		} else {
 
-	/**
-	 * Init basket
-	 */
-	public function init() {
-		
-		$data = $this->keeper->get();
+			$this->keeper = new CookieKeeper('basket');
 
-		$this->container = $data ? $data : [];
+		}
+
+		if(($this->container = $this->unprepare($this->keeper->get())) === null)
+		{
+
+			$this->container = [];
+
+		}
 
 	}
 
@@ -48,12 +51,16 @@ class Basket {
 	 */
 	public function add(array $data) {
 
-		if(!isset($data['id']))
+		if(isset($data['id']))
 		{
-			throw new \Exception('data must contain id');
-		}
 
-		$this->container[$data['id']] = $data;
+			$this->container[$data['id']] = $data;
+
+		} else {
+
+			$this->container[] = $data;
+			
+		}
 
 		return $this;
 	}
@@ -68,12 +75,16 @@ class Basket {
 	 */
 	public function delete($id) {
 
-		if(!isset($this->container[$id]))
+		if(isset($this->container[$id]))
 		{
-			throw new \Exception('a key:'.$id.' does not exist');
-		}
 
-		unset($this->container[$id]);
+			unset($this->container[$id]);
+
+		} else {
+
+			throw new \OutOfRangeException('a key:'.$id.' does not exist');
+
+		}
 
 		return $this;
 	}
@@ -92,9 +103,34 @@ class Basket {
 
 		} else {
 
-			return $this->container[$id];
+			if (isset($this->container[$id]))
+				return $this->container[$id];
+			else
+				return false;
 
 		}
+
+	}
+
+	/**
+	 * Unprepares data for storage
+	 * @param  array $data
+	 * @return string
+	 */
+	public function unprepare($data) {
+
+		return json_decode($data, true);
+
+	}
+
+	/**
+	 * Prepares data for storage
+	 * @param  array $data
+	 * @return string
+	 */
+	public function prepare() {
+
+		return json_encode($this->container);
 
 	}
 
@@ -102,9 +138,7 @@ class Basket {
 	 * Saves state|container in the keeper
 	 */
 	public function saveState() {
-
-		$this->keeper->save($this->container);
-
+		$this->keeper->save($this->prepare());
 	}
 
 }
