@@ -5,7 +5,7 @@ namespace Pasket;
 use Pasket\Keepers\CookieKeeper;
 use Pasket\Keepers\Keeper;
 
-class Basket {
+class Basket { 
 
 	/**
 	 * Container for data
